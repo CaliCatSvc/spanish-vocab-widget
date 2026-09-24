@@ -1,0 +1,101 @@
+Room,Category,Spanish,English,Notes
+Basics,Courtesy,hola,hello,Common throughout Mexico
+Basics,Courtesy,buenos días,good morning,Use until around noon
+Basics,Courtesy,buenas tardes,good afternoon,Use from noon until evening
+Basics,Courtesy,buenas noches,good evening or good night,Used as both greeting and farewell
+Basics,Courtesy,por favor,please,
+Basics,Courtesy,gracias,thank you,
+Basics,Courtesy,muchas gracias,thank you very much,
+Basics,Courtesy,de nada,you are welcome,
+Basics,Courtesy,con permiso,excuse me,Used when passing or entering
+Basics,Courtesy,disculpe,excuse me or sorry,Polite formal form
+Basics,Courtesy,perdón,sorry or pardon,
+Basics,Courtesy,sí,yes,
+Basics,Courtesy,no,no,
+Basics,Courtesy,tal vez,maybe,
+Basics,Conversation,¿Cómo está?,How are you?,Polite or formal
+Basics,Conversation,Estoy bien,I am fine,
+Basics,Conversation,¿Cómo se llama?,What is your name?,Polite or formal
+Basics,Conversation,Me llamo…,My name is…,
+Basics,Conversation,Mucho gusto,Nice to meet you,
+Basics,Conversation,No entiendo,I do not understand,
+Basics,Conversation,¿Puede repetirlo?,Can you repeat that?,Polite or formal
+Basics,Conversation,Más despacio por favor,More slowly please,
+Basics,Conversation,¿Habla inglés?,Do you speak English?,Polite or formal
+Basics,Conversation,Estoy aprendiendo español,I am learning Spanish,
+Basics,Conversation,¿Qué significa?,What does it mean?,
+Basics,Farewells,hasta luego,see you later,
+Basics,Farewells,nos vemos,see you,Informal and common in Mexico
+Basics,Farewells,adiós,goodbye,
+Getting Around,Directions,¿Dónde está el baño?,Where is the bathroom?,
+Getting Around,Directions,¿Dónde está…?,Where is…?,
+Getting Around,Directions,aquí,here,
+Getting Around,Directions,allá,over there,
+Getting Around,Directions,a la derecha,to the right,
+Getting Around,Directions,a la izquierda,to the left,
+Getting Around,Directions,derecho,straight ahead,Common Mexican direction
+Getting Around,Directions,cerca,near,
+Getting Around,Directions,lejos,far,
+Getting Around,Transportation,¿Cuánto cuesta el viaje?,How much is the ride?,
+Getting Around,Transportation,Lléveme a esta dirección por favor,Take me to this address please,
+Getting Around,Transportation,¿Dónde tomo un taxi?,Where do I get a taxi?,
+Getting Around,Transportation,la parada,the stop,Bus or transit stop
+Getting Around,Transportation,el camión,the bus,Very common in Mexico
+Getting Around,Transportation,el coche,the car,Common in Mexico alongside carro
+Getting Around,Transportation,la gasolina,gasoline,
+Getting Around,Transportation,Llene el tanque por favor,Fill the tank please,
+Shopping,Money,¿Cuánto cuesta?,How much does it cost?,
+Shopping,Money,Está muy caro,It is very expensive,
+Shopping,Money,¿Aceptan tarjeta?,Do you accept cards?,
+Shopping,Money,Solo efectivo,cash only,
+Shopping,Money,¿Tiene cambio?,Do you have change?,
+Shopping,Money,Quisiera pagar,I would like to pay,
+Shopping,Groceries,la tienda,the store,
+Shopping,Groceries,el supermercado,the supermarket,
+Shopping,Groceries,el mercado,the market,
+Shopping,Groceries,una bolsa,a bag,
+Shopping,Groceries,un kilo,one kilogram,
+Shopping,Groceries,medio kilo,half a kilogram,
+Shopping,Groceries,una pieza,one piece or item,
+Shopping,Groceries,¿Tiene leche?,Do you have milk?,
+Shopping,Groceries,¿Dónde están los huevos?,Where are the eggs?,
+Food and Dining,Food,agua,water,
+Food and Dining,Food,comida,food or main meal,In Mexico comida can mean the main afternoon meal
+Food and Dining,Food,desayuno,breakfast,
+Food and Dining,Food,cena,dinner,
+Food and Dining,Food,pollo,chicken,
+Food and Dining,Food,carne,meat,
+Food and Dining,Food,pescado,fish as food,
+Food and Dining,Food,verduras,vegetables,
+Food and Dining,Food,fruta,fruit,
+Food and Dining,Food,tortillas,tortillas,
+Food and Dining,Restaurant,Una mesa para dos por favor,A table for two please,
+Food and Dining,Restaurant,Quisiera ordenar,I would like to order,
+Food and Dining,Restaurant,¿Qué recomienda?,What do you recommend?,
+Food and Dining,Restaurant,Sin picante por favor,Not spicy please,
+Food and Dining,Restaurant,Con poquito chile por favor,With just a little chile please,Natural in Mexico
+Food and Dining,Restaurant,La cuenta por favor,The check please,
+Food and Dining,Restaurant,Está delicioso,It is delicious,
+Food and Dining,Restaurant,Para llevar,to go,
+Home,House,la casa,the house,
+Home,House,la cocina,the kitchen,
+Home,House,el baño,the bathroom,
+Home,House,la recámara,the bedroom,Very common in Mexico
+Home,House,la sala,the living room,
+Home,House,la puerta,the door,
+Home,House,la ventana,the window,
+Home,House,la llave,the key or faucet,Meaning depends on context
+Home,Utilities,no hay agua,there is no water,
+Home,Utilities,no hay luz,there is no electricity,Common Mexican phrasing
+Home,Utilities,el tinaco,the rooftop water tank,Very common in Mexico
+Home,Utilities,¿Hay wifi?,Is there Wi-Fi?,
+Home,Utilities,Necesito un plomero,I need a plumber,
+Home,Utilities,Necesito un electricista,I need an electrician,
+Help and Health,Help,Necesito ayuda,I need help,
+Help and Health,Help,¿Me puede ayudar?,Can you help me?,Polite and natural in Mexico
+Help and Health,Help,Llame a la policía,Call the police,
+Help and Health,Health,Me siento mal,I feel sick,
+Help and Health,Health,Necesito un médico,I need a doctor,
+Help and Health,Health,¿Dónde hay una farmacia?,Where is there a pharmacy?,
+Help and Health,Health,Tengo una alergia,I have an allergy,
+Help and Health,Health,Es una emergencia,It is an emergency,
