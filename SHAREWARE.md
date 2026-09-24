@@ -6,6 +6,8 @@ Spanish Vocab Widget may be evaluated for 30 days at no charge. A personal
 license costs $9.99 USD as a one-time payment. It is not a subscription and
 does not renew automatically.
 
+[Purchase a personal license for $9.99 USD through PayPal](https://paypal.me/calimoxo/9.99USD).
+
 After the evaluation period, users who continue using the app are asked to
 purchase a license. Registration uses an honor system. Selecting I Have Paid
 records the licensed status on that Mac. It does not transmit information.
@@ -23,3 +25,4 @@ spanishvocab@onda.aleeas.com.
 
 Use of the software is also governed by the included proprietary license and
 privacy notice.
+
