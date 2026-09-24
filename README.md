@@ -7,6 +7,8 @@ A compact desktop vocabulary strip for macOS 26 or later. It displays Mexican Sp
 
 **[Download Spanish Vocab Widget for macOS](https://github.com/CaliCatSvc/spanish-vocab-widget/releases/latest/download/Spanish_Vocab_Widget_for_Mac.zip)**
 
+[![Purchase License, $9.99 USD](https://img.shields.io/badge/Purchase_License-$9.99_USD-0070BA?logo=paypal&logoColor=white)](https://paypal.me/calimoxo/9.99USD)
+
 Requires macOS 26 or later. The app is standalone and does not require Homebrew, Python, Xcode, or another application.
 
 The app includes a 30-day evaluation. A personal license is a one-time $9.99 USD payment, with no subscription or automatic renewal.
@@ -15,7 +17,7 @@ The app includes a 30-day evaluation. A personal license is a one-time $9.99 USD
 
 Spanish Vocab Widget is honor-system shareware. You may evaluate it for 30 days, then purchase a personal license for a one-time payment of $9.99 USD. There is no subscription or automatic renewal. One license covers one person on Macs that person owns or controls.
 
-Purchases are handled through PayPal. See [Shareware Terms](SHAREWARE.md), [Privacy Notice](PRIVACY.md), and [License](LICENSE).
+Purchases are handled through [PayPal](https://paypal.me/calimoxo/9.99USD). See [Shareware Terms](SHAREWARE.md), [Privacy Notice](PRIVACY.md), and [License](LICENSE).
 
 ## Features
 
