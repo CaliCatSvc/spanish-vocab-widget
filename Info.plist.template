@@ -8,6 +8,7 @@
   <key>CFBundleIdentifier</key><string>__BUNDLE_ID__</string>
   <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
   <key>CFBundleName</key><string>__APP_NAME__</string>
+  <key>CFBundleIconFile</key><string>MexicanFlagIcon-1200.png</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>__VERSION__</string>
   <key>CFBundleVersion</key><string>__BUILD_NUMBER__</string>
@@ -15,6 +16,14 @@
   <key>LSUIElement</key><true/>
   <key>NSHighResolutionCapable</key><true/>
   <key>UpdateURL</key><string>__UPDATE_URL__</string>
+  <key>UpdateFeedURL</key><string>https://api.github.com/repos/CaliCatSvc/spanish-vocab-widget/releases/latest</string>
+  <key>UpdateAssetName</key><string>__UPDATE_ASSET_NAME__</string>
+  <key>AutomaticUpdatesEnabled</key><__AUTOMATIC_UPDATES_ENABLED__/>
+  <key>CodeOnlyUpdates</key><__CODE_ONLY_UPDATES__/>
   <key>VocabularyFolderName</key><string>__VOCABULARY_FOLDER__</string>
+  <key>PurchaseURL</key><string>__PURCHASE_URL__</string>
+  <key>SupportEmail</key><string>__SUPPORT_EMAIL__</string>
+  <key>SharewarePrice</key><string>__SHAREWARE_PRICE__</string>
+  <key>TrialDays</key><integer>__TRIAL_DAYS__</integer>
 </dict>
 </plist>
