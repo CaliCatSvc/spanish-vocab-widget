@@ -1,6 +1,15 @@
+
 # Spanish Vocab Widget for macOS
 
 A compact desktop vocabulary strip for macOS 26 or later. It displays Mexican Spanish vocabulary from a CSV file, speaks the Spanish when clicked, advances automatically, and includes back and forward controls.
+
+## Download
+
+**[Download Spanish Vocab Widget for macOS](https://github.com/CaliCatSvc/spanish-vocab-widget/releases/latest/download/Spanish_Vocab_Widget_for_Mac.zip)**
+
+Requires macOS 26 or later. The app is standalone and does not require Homebrew, Python, Xcode, or another application.
+
+The app includes a 30-day evaluation. A personal license is a one-time $9.99 USD payment, with no subscription or automatic renewal.
 
 ## Shareware
 
