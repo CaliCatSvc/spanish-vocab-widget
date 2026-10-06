@@ -26,6 +26,8 @@ Purchases are handled through [PayPal](https://paypal.me/calimoxo/9.99USD). See 
 - Back and forward arrows with word history
 - Automatic changes every 1, 3, 5, 10, or 15 minutes
 - Random or grouped-by-theme order
+- Start review at any vocabulary category, then continue through later categories in order
+- Show each word's category directly in the desktop strip
 - Fixed 40-point height with an automatically fitted width
 - Optional pronunciation display, hidden by default
 - Custom font, size, weight, colors, and opacity
