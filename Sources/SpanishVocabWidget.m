@@ -33,6 +33,8 @@
 @property NSMenuItem *pronunciationMenuItem;
 @property NSMutableArray<NSMenuItem *> *intervalItems;
 @property NSMutableArray<NSMenuItem *> *orderItems;
+@property NSMutableArray<NSMenuItem *> *categoryItems;
+@property NSMenu *categoryMenu;
 @property NSMutableArray<NSMenuItem *> *voiceItems;
 @property NSArray<NSDictionary *> *entries;
 @property NSMutableArray<NSNumber *> *deck;
@@ -80,6 +82,7 @@
         @"backgroundColor": @"#E7E7E7FF",
         @"backgroundOpacity": @0.94,
         @"wordOrder": @"random",
+        @"reviewStartCategory": @"",
         @"showPronunciation": @NO,
         @"spanishVoiceIdentifier": @""
     }];
@@ -333,6 +336,11 @@
         [orderMenu addItem:item]; [self.orderItems addObject:item];
     }
     wordOrder.submenu = orderMenu; [menu addItem:wordOrder];
+    NSMenuItem *startCategory = [[NSMenuItem alloc] initWithTitle:@"Start Review At" action:nil keyEquivalent:@""];
+    self.categoryMenu = [NSMenu new];
+    startCategory.submenu = self.categoryMenu;
+    [menu addItem:startCategory];
+    [self rebuildCategoryMenu];
     [menu addItem:NSMenuItem.separatorItem];
     if ([[NSBundle.mainBundle objectForInfoDictionaryKey:@"AutomaticUpdatesEnabled"] boolValue]) {
         [menu addItemWithTitle:@"Update…" action:@selector(checkForUpdates:) keyEquivalent:@"u"].target = self;
@@ -346,6 +354,47 @@
     [menu addItem:NSMenuItem.separatorItem];
     [menu addItemWithTitle:[NSString stringWithFormat:@"Quit %@", [self appName]] action:@selector(quitApp:) keyEquivalent:@"q"].target = self;
     self.statusItem.menu = menu;
+}
+
+- (NSString *)reviewCategoryForEntry:(NSDictionary *)entry {
+    NSString *room = [entry[@"room"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (room.length) return room;
+    NSString *category = [entry[@"category"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return category.length ? category : @"Other";
+}
+
+- (NSArray<NSString *> *)reviewCategories {
+    NSMutableSet<NSString *> *names = [NSMutableSet set];
+    for (NSDictionary *entry in self.entries) [names addObject:[self reviewCategoryForEntry:entry]];
+    return [[names allObjects] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+}
+
+- (void)rebuildCategoryMenu {
+    if (!self.categoryMenu) return;
+    [self.categoryMenu removeAllItems];
+    self.categoryItems = [NSMutableArray array];
+    NSString *selected = [[NSUserDefaults standardUserDefaults] stringForKey:@"reviewStartCategory"] ?: @"";
+    NSArray<NSString *> *categories = [self reviewCategories];
+    BOOL selectionExists = selected.length == 0 || [categories containsObject:selected];
+    if (!selectionExists) {
+        selected = @"";
+        [[NSUserDefaults standardUserDefaults] setObject:selected forKey:@"reviewStartCategory"];
+    }
+    NSMenuItem *all = [[NSMenuItem alloc] initWithTitle:@"All Categories, From the Beginning" action:@selector(setReviewStartCategory:) keyEquivalent:@""];
+    all.target = self;
+    all.representedObject = @"";
+    all.state = selected.length == 0 ? NSControlStateValueOn : NSControlStateValueOff;
+    [self.categoryMenu addItem:all];
+    [self.categoryItems addObject:all];
+    if (categories.count) [self.categoryMenu addItem:NSMenuItem.separatorItem];
+    for (NSString *category in categories) {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:category action:@selector(setReviewStartCategory:) keyEquivalent:@""];
+        item.target = self;
+        item.representedObject = category;
+        item.state = [selected isEqualToString:category] ? NSControlStateValueOn : NSControlStateValueOff;
+        [self.categoryMenu addItem:item];
+        [self.categoryItems addObject:item];
+    }
 }
 
 - (void)openBundledTextDocument:(NSString *)name {
@@ -431,7 +480,8 @@
     self.deck = [NSMutableArray array];
     for (NSInteger i = 0; i < self.entries.count; i++) [self.deck addObject:@(i)];
     NSString *order = [[NSUserDefaults standardUserDefaults] stringForKey:@"wordOrder"] ?: @"random";
-    if ([order isEqualToString:@"theme"]) {
+    NSString *startCategory = [[NSUserDefaults standardUserDefaults] stringForKey:@"reviewStartCategory"] ?: @"";
+    if ([order isEqualToString:@"theme"] || startCategory.length) {
         [self.deck sortUsingComparator:^NSComparisonResult(NSNumber *left, NSNumber *right) {
             NSDictionary *a = self.entries[left.integerValue], *b = self.entries[right.integerValue];
             NSComparisonResult roomResult = [a[@"room"] localizedCaseInsensitiveCompare:b[@"room"]];
@@ -445,6 +495,15 @@
         if (self.currentIndex >= 0 && self.deck.count > 1 && self.deck[0].integerValue == self.currentIndex) [self.deck exchangeObjectAtIndex:0 withObjectAtIndex:1];
     }
     self.deckPosition = 0;
+    if (startCategory.length) {
+        for (NSInteger position = 0; position < self.deck.count; position++) {
+            NSDictionary *entry = self.entries[self.deck[position].integerValue];
+            if ([[self reviewCategoryForEntry:entry] isEqualToString:startCategory]) {
+                self.deckPosition = position;
+                break;
+            }
+        }
+    }
 }
 
 - (NSString *)simpleRoom:(NSString *)room {
@@ -512,10 +571,11 @@
     NSString *spanish = entry[@"spanish"];
     NSString *english = [self contextualEnglish:entry];
     NSString *pronunciation = entry[@"pronunciation"] ?: @"";
+    NSString *category = [self reviewCategoryForEntry:entry];
     BOOL showPronunciation = [defaults boolForKey:@"showPronunciation"] && pronunciation.length > 0;
     NSString *text = showPronunciation
-        ? [NSString stringWithFormat:@"%@  ·  %@  ·  %@", spanish, pronunciation, english]
-        : [NSString stringWithFormat:@"%@  ·  %@", spanish, english];
+        ? [NSString stringWithFormat:@"%@  ·  %@  ·  %@  ·  %@", spanish, pronunciation, english, category]
+        : [NSString stringWithFormat:@"%@  ·  %@  ·  %@", spanish, english, category];
     CGFloat size = [defaults doubleForKey:@"fontSize"];
     NSFontWeight weight = [self selectedWeight];
     NSFont *spanishFont = [self selectedFontWithSize:size weight:weight];
@@ -703,7 +763,35 @@
 - (void)toggleWidget:(id)sender { if (self.panel.visible) { [self.panel orderOut:nil]; self.showMenuItem.title = @"Show Widget"; } else { [self.panel orderFrontRegardless]; self.showMenuItem.title = @"Hide Widget"; } }
 - (void)togglePronunciation:(id)sender { BOOL show = ![[NSUserDefaults standardUserDefaults] boolForKey:@"showPronunciation"]; [[NSUserDefaults standardUserDefaults] setBool:show forKey:@"showPronunciation"]; self.pronunciationMenuItem.state = show ? NSControlStateValueOn : NSControlStateValueOff; if (self.currentIndex >= 0 && self.currentIndex < self.entries.count) [self displayEntry:self.entries[self.currentIndex]]; }
 - (void)setInterval:(NSMenuItem *)sender { self.intervalMinutes = [sender.representedObject integerValue]; [[NSUserDefaults standardUserDefaults] setInteger:self.intervalMinutes forKey:@"intervalMinutes"]; for (NSMenuItem *item in self.intervalItems) item.state = item == sender ? NSControlStateValueOn : NSControlStateValueOff; [self scheduleTimer]; }
-- (void)setWordOrder:(NSMenuItem *)sender { [[NSUserDefaults standardUserDefaults] setObject:sender.representedObject forKey:@"wordOrder"]; for (NSMenuItem *item in self.orderItems) item.state = item == sender ? NSControlStateValueOn : NSControlStateValueOff; [self refillDeck]; [self showNextWord]; [self scheduleTimer]; }
+- (void)setWordOrder:(NSMenuItem *)sender {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    [defaults setObject:sender.representedObject forKey:@"wordOrder"];
+    if ([sender.representedObject isEqualToString:@"random"]) {
+        [defaults setObject:@"" forKey:@"reviewStartCategory"];
+        [self rebuildCategoryMenu];
+    }
+    for (NSMenuItem *item in self.orderItems) item.state = item == sender ? NSControlStateValueOn : NSControlStateValueOff;
+    [self.history removeAllObjects];
+    self.historyPosition = -1;
+    self.currentIndex = -1;
+    [self refillDeck];
+    [self showNextWord];
+    [self scheduleTimer];
+}
+- (void)setReviewStartCategory:(NSMenuItem *)sender {
+    NSString *category = sender.representedObject ?: @"";
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    [defaults setObject:category forKey:@"reviewStartCategory"];
+    [defaults setObject:@"theme" forKey:@"wordOrder"];
+    for (NSMenuItem *item in self.categoryItems) item.state = item == sender ? NSControlStateValueOn : NSControlStateValueOff;
+    for (NSMenuItem *item in self.orderItems) item.state = [item.representedObject isEqualToString:@"theme"] ? NSControlStateValueOn : NSControlStateValueOff;
+    [self.history removeAllObjects];
+    self.historyPosition = -1;
+    self.currentIndex = -1;
+    [self refillDeck];
+    [self showNextWord];
+    [self scheduleTimer];
+}
 - (void)importVocabularyFile:(id)sender {
     [NSApp activateIgnoringOtherApps:YES];
     NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -723,6 +811,7 @@
     [self prepareEditableVocabulary];
     if (![text writeToURL:[self editableVocabularyURL] atomically:YES encoding:NSUTF8StringEncoding error:&error]) { [self showImportError:error.localizedDescription ?: @"The vocabulary file could not be saved."]; return; }
     [self loadVocabulary];
+    [self rebuildCategoryMenu];
     [self.history removeAllObjects]; self.historyPosition = -1; self.currentIndex = -1;
     [self refillDeck]; [self showNextWord]; [self scheduleTimer];
 }
@@ -830,7 +919,7 @@
     [NSApp activateIgnoringOtherApps:YES];
     [alert runModal];
 }
-- (void)reloadVocabulary:(id)sender { [self loadVocabulary]; [self refillDeck]; [self showNextWord]; [self scheduleTimer]; }
+- (void)reloadVocabulary:(id)sender { [self loadVocabulary]; [self rebuildCategoryMenu]; [self refillDeck]; [self showNextWord]; [self scheduleTimer]; }
 - (void)showAbout:(id)sender {
     [self loadVocabulary];
     NSBundle *bundle = NSBundle.mainBundle;
